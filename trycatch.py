@@ -50,4 +50,30 @@ def Counter():
         html.button({"on_click": handle_click}, "Increment by 5")
     )
     
-run(Counter)
+# run(Counter)
+
+
+
+''' creating dynamic todo app to add task to list '''
+
+@component
+def TodoList():
+    task, set_task = use_state('')
+    task_list, set_tasklist = use_state([])
+    
+    def handle_input(event):
+        set_task(event['target']['value'])
+        
+    def handle_submit(event):
+        set_tasklist(task_list + [task])
+        
+    return html.div(
+        html.h1("My Todo App !!!"),
+        html.input({"on_change":handle_input}),
+        html.button({"on_click": handle_submit}, "Add Task"),
+        generateList(task_list)
+    )
+    
+    
+    
+run(TodoList)
