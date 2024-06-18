@@ -1,4 +1,4 @@
-from reactpy import component, html, run
+from reactpy import component, html, run, use_state
 
 @component
 def Hellocomponent():
@@ -27,4 +27,27 @@ def ListComponent():
         generateList(tasks)
     )
     
-run(ListComponent)
+# run(ListComponent)
+
+
+
+''' creating counter '''
+
+
+def increment(old_val):
+    new_val = old_val + 5
+    return new_val
+
+@component
+def Counter():
+    num, set_num = use_state(0)
+    
+    def handle_click(event):
+        set_num(increment)
+    
+    return html.div(
+        html.h1(num),
+        html.button({"on_click": handle_click}, "Increment by 5")
+    )
+    
+run(Counter)
